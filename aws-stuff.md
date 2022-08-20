@@ -6,7 +6,7 @@ ubuntu machine with t2.medium with 2 vCPUs and 8GB ram
 
 apt-apt-get dist-upgrade
 
-## installing python
+### installing python
 
 sudo apt install software-properties-common
 sudo add-apt-repository ppa:deadsnakes/ppa
