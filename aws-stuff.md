@@ -8,3 +8,4 @@ AIj8DLF2/AyxdgAAAAtzc2gtZWQyNTUxOQAAACBOfSqAgveqWtz9zS7lpvLWHvS7
 bU59KoCC96pa3P3NLuWm8tYe9Lvw1ZlOfIBr3DejvN2JAAAAAAECAwQF
 -----END OPENSSH PRIVATE KEY-----
 
+ ssh -i "CS690.pem" ubuntu@ec2-34-227-224-116.compute-1.amazonaws.com
