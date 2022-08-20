@@ -1,3 +1,18 @@
+# Specs
+
+ubuntu machine with t2.medium with 2 vCPUs and 8GB ram
+
+# Initial commands
+
+apt-apt-get dist-upgrade
+
+## installing python
+
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt install python3.9
+python3.9 --version
+
 # how to get in
 
 -----BEGIN OPENSSH PRIVATE KEY-----
@@ -8,4 +23,4 @@ AIj8DLF2/AyxdgAAAAtzc2gtZWQyNTUxOQAAACBOfSqAgveqWtz9zS7lpvLWHvS7
 bU59KoCC96pa3P3NLuWm8tYe9Lvw1ZlOfIBr3DejvN2JAAAAAAECAwQF
 -----END OPENSSH PRIVATE KEY-----
 
- ssh -i "CS690.pem" ubuntu@ec2-34-227-224-116.compute-1.amazonaws.com
+ ssh -i ~/.ssh/CS690.pem ubuntu@ec2-34-227-224-116.compute-1.amazonaws.com
