@@ -1,3 +1,4 @@
 {
     "C_Cpp.errorSquiggles": "Enabled",
+    "remote.SSH.useLocalServer": false
 }
