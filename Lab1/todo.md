@@ -29,3 +29,4 @@ https://man7.org/linux/man-pages/man2/mmap.2.html
 # Read how to create static libraries
 
 https://tldp.org/HOWTO/Program-Library-HOWTO/static-libraries.html
+https://medium.com/@eightlimbed/how-to-create-and-use-a-c-static-library-eec33d502aeb
