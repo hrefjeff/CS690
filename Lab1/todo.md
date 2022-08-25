@@ -14,7 +14,7 @@ Freeing memory should only combine segments if they are right next to each other
 
 No need to recursively combine segments as this is just a toy library.  
 
-# Read vm-api
+# ~~Read vm-api~~
 
 This explains how to use the memory api in c
 
