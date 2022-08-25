@@ -22,7 +22,7 @@ This explains how to use the memory api in c
 
 This explains how to use freelist
 
-#  Read mmap man
+#  ~~Read mmap man~~
 
 https://man7.org/linux/man-pages/man2/mmap.2.html
 
