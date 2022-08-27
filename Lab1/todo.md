@@ -14,6 +14,10 @@ Freeing memory should only combine segments if they are right next to each other
 
 No need to recursively combine segments as this is just a toy library.  
 
+# References
+
+The mmap heap initialization is located on page 173 in Operating System: 3 Easy Pieces
+
 # ~~Read vm-api~~
 
 This explains how to use the memory api in c
