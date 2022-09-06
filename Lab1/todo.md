@@ -8,7 +8,7 @@ The library should allocate (i.e., malloc) and deallocate (i.e., free).
 
 It does not have support growing the “heap” if out of memory (make the default mmap large enough to do a few mallocs). 
 
-The first Fit strategy for selection is fine to use.
+The first Fit strategy for selection is fine to use. (Found on pg 12 of OS Book Free-Space Management)
 
 Freeing memory should only combine segments if they are right next to each other.
 
@@ -17,6 +17,7 @@ No need to recursively combine segments as this is just a toy library.
 # References
 
 The mmap heap initialization is located on page 173 in Operating System: 3 Easy Pieces
+First Fit strat is found in OS:3EP Ch.17 pg 12 Free-Space Management
 
 # ~~Read vm-api~~
 
