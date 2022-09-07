@@ -1,0 +1,7 @@
+  gcc -c mysum.c -o libsum.o
+  gcc -c mydiff.c -o libdiff.o
+  ar -rc libcalc.a libsum.o libdiff.o 
+  vim calc.h
+  gcc -c my_prog.c -o main.o
+  gcc -c my_prog.c -o main.o
+  gcc -o main main.o -L . libcalc.a
