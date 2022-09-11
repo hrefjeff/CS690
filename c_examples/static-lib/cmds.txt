@@ -1,6 +1,14 @@
+Step 1. Create Object Files
+
 gcc -c mysum.c -o libsum.o
 gcc -c mydiff.c -o libdiff.o
+
+Step 2. Create library with ar command
+
 ar -rc libcalc.a libsum.o libdiff.o 
-vim calc.h
-gcc -c my_prog.c -o main.o
-gcc -o main main.o -L . libcalc.a
+
+Step 3. Create program object file
+gcc -c my_prog.c -o my_prog.o
+
+Step 4. Use the linker to link the library to the file
+gcc -o my_prog my_prog.o -L . libcalc.a
