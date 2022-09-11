@@ -1,10 +1,7 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <sys/mman.h>
 
 #include "mymalloc.h"
-
-
 
 int main() {
 
@@ -32,7 +29,7 @@ int main() {
 		return 1;
 	}
 
-	int* first_alloc = mymalloc(100);
+	int* first_alloc = mymalloc(head, 100);
 
 
 

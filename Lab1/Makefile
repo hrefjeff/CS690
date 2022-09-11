@@ -1,20 +1,17 @@
 # Compiler: gcc for the C program
 CC=gcc
 
-# Compiler flags:
-# -I. for searching current directory
-CFLAGS = -I.
+all: main allocator_library
+	$(CC) -o main main.o -L . libmalloc.a
 
-# Build target
-TARGET = labprogram
+main: main.c
+	gcc -c main.c -o main.o
 
-DEPS = mymalloc.h
-OBJ = something.o anotherthing.o
+allocator_library: malloc.o
+	ar -rc libmalloc.a mymalloc.o
 
-%.o: 
-
-lab1make: something.o anotherthing.o
-	$(CC) $(CFLAGS) -o $(TARGET) main.c 
+malloc.o: mymalloc.c
+	gcc -c mymalloc.c -o mymalloc.o
 
 clean:
-	$(RM) $(TARGET)
+	$(RM) main *.o *~ *.a
