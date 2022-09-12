@@ -4,13 +4,13 @@
 #include <stdlib.h>
 
 // Creating a node
-struct node {
+typedef struct node {
   int value;
   struct node *next;
-};
+} node;
 
 // print the linked list value
-void printLinkedlist(struct node *p) {
+void printLinkedlist(node *p) {
   while (p != NULL) {
     printf("%d ", p->value);
     p = p->next;
@@ -24,11 +24,11 @@ Writer(s) : Jeffrey Allen
 Purpose   : adds a node to the beginning of the list
 Params    : Pointer to a pointer of a node, value
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
-void insertBeginning(struct node **head, int val){
+void insertBeginning(node **head, int val){
 
   // Allocate mem for new node
-  struct node *newNode;
-  newNode = malloc(sizeof(struct node));
+  node *newNode;
+  newNode = malloc(sizeof(node));
 
   // Assign vals
   newNode->value = val;
@@ -44,18 +44,18 @@ Writer(s) : Jeffrey Allen
 Purpose   : adds a node to the end of the list
 Params    : Pointer to a node, value
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
-void insertEnd(struct node *head, int val){
+void insertEnd(node *head, int val){
 
   // Allocate mem for new node
-  struct node *newNode;
-  newNode = malloc(sizeof(struct node));
+  node *newNode;
+  newNode = malloc(sizeof(node));
 
   // Assign vals
   newNode->value = val;
   newNode->next = NULL;
 
   // Begin traversal of list and find end
-  struct node *temp = head;
+  node *temp = head;
   while(temp->next != NULL){
     temp = temp->next;
   }
@@ -64,21 +64,21 @@ void insertEnd(struct node *head, int val){
   temp->next = newNode;
 }
 
-void delete(struct node *p){
+void delete(node *p){
   
 }
 
 int main() {
   // Initialize nodes
-  struct node *head = NULL;
-  struct node *one = NULL;
-  struct node *two = NULL;
-  struct node *three = NULL;
+  node *head = NULL;
+  node *one = NULL;
+  node *two = NULL;
+  node *three = NULL;
 
   // Allocate memory
-  one = malloc(sizeof(struct node));
-  two = malloc(sizeof(struct node));
-  three = malloc(sizeof(struct node));
+  one = malloc(sizeof(node));
+  two = malloc(sizeof(node));
+  three = malloc(sizeof(node));
 
   // Assign value values
   one->value = 1;
