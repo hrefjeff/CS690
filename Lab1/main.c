@@ -21,7 +21,6 @@ int main() {
 			  |                    |
 			  |____________________|
 	*/
-	
 
 	// Check to see if it allocated
 	if (head == MAP_FAILED){
@@ -31,7 +30,7 @@ int main() {
 
 	int* first_alloc = mymalloc(head, 100);
 
-
+	
 
 	return 0;
 }

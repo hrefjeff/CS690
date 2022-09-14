@@ -27,4 +27,4 @@ typedef struct header_region {
 
 int* mymalloc(freelist_node *n, size_t memsize);
 void myfree(void *ptr);
-void searchList(freelist_node *n);
+freelist_node firstFitSearch(freelist_node *n);
