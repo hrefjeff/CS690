@@ -2,6 +2,8 @@
 #include <sys/mman.h>
 #include "mymalloc.h"
 
+static node* freelist_head;
+
 // Splitting - When allocation occurs, the allocator needs to find a free
 //             chunk of memory that can satisfy the request and split it into two
 //             The first chunk it will return to the caller
@@ -12,8 +14,6 @@
 //               nearby chunks of free space; if the newly freed space sits right next to one (or two)
 //               existing free chunks, merge them into a single larger free chunk.
 //               Update the list accordingly
-
-static node* freelist_head;
 
 node* getFreelistHead() {
     return freelist_head;
@@ -27,14 +27,14 @@ int initializeList() {
 
 	/* Freelist currently looks like this:
 		hr->  ______________________
-       		  |                    |
-			  | size: 4 byte int   |
+       	  |                    |
+			    | size: 4 byte int   |
  		ptr-> ----------------------
-			  | size: 4092         |
-			  |                    |
-			  |                    |
-			  |                    |
-			  |____________________|
+			    | size: 4092         |
+			    |                    |
+			    |                    |
+			    |                    |
+			    |____________________|
 	*/
 
 	// Check to see if it allocated
@@ -47,8 +47,6 @@ int initializeList() {
   }
 }
 
-// Begin Utility Functions
-
 node* firstFitSearch(node *n, size_t memsize) {
   while (n != NULL) {
     if (n->size > memsize) return n;
@@ -57,12 +55,13 @@ node* firstFitSearch(node *n, size_t memsize) {
   return NULL;
 }
 
-void* myMalloc(node *n, size_t memsize) {
+void* myMalloc(size_t memsize) {
     // find chunk of mem (first fit strat)
-    node* free_section = firstFitSearch(n, memsize);
+    node* head = getFreelistHead();
+    node* free_section = firstFitSearch(head, memsize);
     // if found
     if (free_section != NULL) {
-      // TODO: Find out how to split
+      printf("Found some space\n");
       // split it
       // first chunk: put header info on 
       // second chunk: remain on the list

@@ -9,7 +9,7 @@ int main() {
 	node* thehead = getFreelistHead();
 
 	printList(thehead);
-	//int* first_alloc = mymalloc(head, 100);
+	int* first_alloc = myMalloc(100);
 	
 	return 0;
 }

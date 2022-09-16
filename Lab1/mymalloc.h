@@ -31,6 +31,6 @@ node* getFreelistHead();
 int initializeList();
 void printList(node* n);
 
-void* myMalloc(node* n, size_t memsize);
+void* myMalloc(size_t memsize);
 void myFree(void* ptr);
 node* firstFitSearch(node* n, size_t memsize);
