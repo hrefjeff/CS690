@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <sys/mman.h>
 #include "mymalloc.h"
 
 // Splitting - When allocation occurs, the allocator needs to find a free
@@ -12,10 +13,43 @@
 //               existing free chunks, merge them into a single larger free chunk.
 //               Update the list accordingly
 
+static node* freelist_head;
+
+node* getFreelistHead() {
+    return freelist_head;
+}
+
+int initializeList() {
+  // Allocate 4KB of memory
+	node* HEAD = mmap(NULL, LIST_SIZE, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	HEAD->size = LIST_SIZE - sizeof(node); // embedding the list within the allocated space
+	HEAD->next = NULL;
+
+	/* Freelist currently looks like this:
+		hr->  ______________________
+       		  |                    |
+			  | size: 4 byte int   |
+ 		ptr-> ----------------------
+			  | size: 4092         |
+			  |                    |
+			  |                    |
+			  |                    |
+			  |____________________|
+	*/
+
+	// Check to see if it allocated
+	if (HEAD == MAP_FAILED){
+		printf("mmap failed to allocate memory. lol\n");
+    return 1;
+	} else {
+    freelist_head = HEAD;
+    return 0;
+  }
+}
 
 // Begin Utility Functions
 
-freelist_node firstFitSearch(freelist_node *n, size_t memsize) {
+node* firstFitSearch(node *n, size_t memsize) {
   while (n != NULL) {
     if (n->size > memsize) return n;
     n = n->next;
@@ -23,9 +57,9 @@ freelist_node firstFitSearch(freelist_node *n, size_t memsize) {
   return NULL;
 }
 
-int* mymalloc(freelist_node *n, size_t memsize) {
+void* myMalloc(node *n, size_t memsize) {
     // find chunk of mem (first fit strat)
-    freelist_node free_section = firstFitSearch(n, memsize);
+    node* free_section = firstFitSearch(n, memsize);
     // if found
     if (free_section != NULL) {
       // TODO: Find out how to split
@@ -37,8 +71,17 @@ int* mymalloc(freelist_node *n, size_t memsize) {
     }
 }
 
-void myfree(void *ptr) {
+void myFree(void *ptr) {
     struct header_region *hptr = (void *)ptr - sizeof(struct header_region); // this points to size
-    int size_of_chunk = hptr->size;
+    unsigned int size_of_chunk = hptr->size;
+    unsigned int addr_of_chunk = hptr->addr;
     // update list with this info
+}
+
+void printList(node* n){
+  while (n != NULL) {
+    printf("%d ", n->size);
+    n = n->next;
+  }
+  printf("\n");
 }

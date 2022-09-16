@@ -15,6 +15,9 @@ int main()
 	mallocPrintSize();
 	forgetToAllocate();
 
+	unsigned int x = 5;
+	printf("Size of unsigned int : %ld\n", sizeof(x));
+
 	return 0;
 }
 

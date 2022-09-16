@@ -1,17 +1,12 @@
 #define LIST_SIZE 4096
 
-typedef struct freelist_node {
-    int                     size;  // Size of memory space
-    struct freelist_node    *next; // Address of next
-} freelist_node;
-
 /*
 Header Region is what is associated to a chunk of malloced memory
 This is so the free can know exactly how much to release
 Example:
 
  hr->  ______________________
-       |                    |
+       | addr:0x590293      |
        | size:20            |
  ptr-> ----------------------
        |                    |
@@ -22,9 +17,20 @@ Example:
 
 */
 typedef struct header_region {
-    int size;
+    unsigned int addr;
+    unsigned int size;
 } header_region;
 
-int* mymalloc(freelist_node *n, size_t memsize);
-void myfree(void *ptr);
-freelist_node firstFitSearch(freelist_node *n);
+typedef struct node {
+    int          size;  // Size of memory space
+    struct node* next; // Address of next
+} node;
+
+// Utility functions
+node* getFreelistHead();
+int initializeList();
+void printList(node* n);
+
+void* myMalloc(node* n, size_t memsize);
+void myFree(void* ptr);
+node* firstFitSearch(node* n, size_t memsize);
