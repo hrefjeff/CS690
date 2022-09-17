@@ -31,13 +31,14 @@ int initializeList() {
 
 	/* Freelist currently looks like this:
 		hr->  ______________________
-			    | size: 4 byte int   |
- 		ptr-> ----------------------
-			    | size: 4092         |
-			    |                    |
-			    |                    |
-			    |                    |
-			    |____________________|
+			    | size: 4 byte int    |
+          | node: 12 byte struct|
+ 		ptr-> -----------------------
+			    | size: 1008          |
+			    |                     |
+			    |                     |
+			    |                     |
+			    |_____________________|
 	*/
 
 	// Check to see if it allocated
@@ -88,7 +89,7 @@ void* myMalloc(size_t memsize) {
       return new_node;
       
     } else {
-      printf("Nah. That request is too big.");
+      printf("Nah. That request is too big.\n");
       return NULL;
     }
 }

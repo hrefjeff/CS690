@@ -15,6 +15,8 @@ int main() {
 	printList(thehead);
 	int* third_alloc = myMalloc(10000);
 	printList(thehead);
+
+	//myFree(second_alloc);
 	
 	return 0;
 }
