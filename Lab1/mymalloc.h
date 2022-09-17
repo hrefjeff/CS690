@@ -1,4 +1,4 @@
-#define LIST_SIZE 4096
+#define LIST_SIZE 1024
 
 /*
 Header Region is what is associated to a chunk of malloced memory
@@ -27,7 +27,8 @@ typedef struct node {
 } node;
 
 // Utility functions
-node* getFreelistHead();
+node* getFreeListHead();
+void setFreeListHead(node* n);
 int initializeList();
 void printList(node* n);
 

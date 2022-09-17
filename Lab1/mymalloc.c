@@ -15,8 +15,12 @@ static node* freelist_head;
 //               existing free chunks, merge them into a single larger free chunk.
 //               Update the list accordingly
 
-node* getFreelistHead() {
-    return freelist_head;
+node* getFreeListHead() {
+  return freelist_head;
+}
+
+void setFreeListHead(node* n){
+  freelist_head = n;
 }
 
 int initializeList() {
@@ -27,7 +31,6 @@ int initializeList() {
 
 	/* Freelist currently looks like this:
 		hr->  ______________________
-       	  |                    |
 			    | size: 4 byte int   |
  		ptr-> ----------------------
 			    | size: 4092         |
@@ -57,30 +60,52 @@ node* firstFitSearch(node *n, size_t memsize) {
 
 void* myMalloc(size_t memsize) {
     // find chunk of mem (first fit strat)
-    node* head = getFreelistHead();
+    node* head = getFreeListHead();
     node* free_section = firstFitSearch(head, memsize);
     // if found
     if (free_section != NULL) {
-      printf("Found some space\n");
       // split it
       // first chunk: put header info on 
+      // Allocate mem for new node
+      node *new_node = mmap(&free_section, memsize, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+
+      // Assign vals
+      new_node->size= memsize;
+      new_node->next = NULL;
+
+      // Begin traversal of list and find end
+      node *temp = head;
+      while(temp->next != NULL){
+        temp = temp->next;
+      }
+      
+      // Assign the last node's next to newly created node
+      temp->next = new_node;
+
       // second chunk: remain on the list
+      head->size = head->size - memsize;
+
+      return new_node;
+      
     } else {
+      printf("Nah. That request is too big.");
       return NULL;
     }
 }
 
 void myFree(void *ptr) {
-    struct header_region *hptr = (void *)ptr - sizeof(struct header_region); // this points to size
+    header_region *hptr = (void *)ptr - sizeof(struct header_region); // this points to size
     unsigned int size_of_chunk = hptr->size;
     unsigned int addr_of_chunk = hptr->addr;
     // update list with this info
 }
 
 void printList(node* n){
+  int i = 0;
   while (n != NULL) {
-    printf("%d ", n->size);
+    printf("Node %d has size %d \n", i, n->size);
     n = n->next;
+    i++;
   }
   printf("\n");
 }
