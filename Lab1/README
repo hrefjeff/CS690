@@ -1,0 +1,10 @@
+Setup by running the command:
+    make
+Run the program:
+    ./main
+
+main.c = driver
+mymalloc.h & mymalloc.h = library code
+malloc.a = created when the make command is executed
+
+Free is unimplemented
