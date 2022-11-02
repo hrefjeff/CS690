@@ -1,7 +1,3 @@
-/* 
- * echoservers.c - A concurrent echo server based on select
- */
-/* $begin echoserversmain */
 #include "csapp.h"
 
 typedef struct { /* Represents a pool of connected descriptors */ //line:conc:echoservers:beginpool
@@ -13,12 +9,7 @@ typedef struct { /* Represents a pool of connected descriptors */ //line:conc:ec
     int clientfd[FD_SETSIZE];    /* Set of active descriptors */
     rio_t clientrio[FD_SETSIZE]; /* Set of active read buffers */
 } pool; //line:conc:echoservers:endpool
-/* $end echoserversmain */
-void init_pool(int listenfd, pool *p);
-void add_client(int connfd, pool *p);
-void check_clients(pool *p);
-/* $begin echoserversmain */
-
+void init_pool(int listenfd, pool *p);void add_client(int connfd, pool *p);void check_clients(pool *p);
 int byte_cnt = 0; /* Counts total bytes received by server */
 
 int main(int argc, char **argv)
