@@ -1,3 +1,20 @@
 select function
 
-It's easy to introduce clock skew by compiling on one machine, copying the generated object code to another machine, and rerunning the make utility on that other machine
+It's easy to introduce clock skew by compiling on one machine,
+copying the generated object code to another machine,
+and rerunning the make utility on that other machine
+
+
+Commands I used:
+ifconfig <--- find the IP address of current machine 
+nmap -sP 10.168.39.0/24 <--- Run a scan to see other machines on the LAN
+
+The machine I used as a server had the IP address of 10.168.39.48
+The machine I used as a client had the IP address of 10.168.39.49
+
+Compiled and ran the make command in code/conc/
+On the server, executed ./echoservers 9001
+On the client, executed ./echoclient 10.168.39.48 9001
+
+On the client I typed a few lines and pressed enter,
+The server echo'd the response and listed the amount of bytes received
