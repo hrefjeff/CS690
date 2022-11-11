@@ -1,3 +1,3 @@
 select function
 
-clock skew for make files
+It's easy to introduce clock skew by compiling on one machine, copying the generated object code to another machine, and rerunning the make utility on that other machine
