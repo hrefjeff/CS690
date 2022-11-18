@@ -11,8 +11,6 @@ typedef struct { /* Represents a pool of connected descriptors */ //line:conc:ec
 } pool; //line:conc:echoservers:endpool
 void init_pool(int listenfd, pool *p);void add_client(int connfd, pool *p);void check_clients(pool *p);
 int byte_cnt = 0; /* Counts total bytes received by server */
-char hostbuffer[50];
-gethostname(hostbuffer, sizeof(hostbuffer));
 
 int main(int argc, char **argv)
 {
@@ -94,6 +92,9 @@ void check_clients(pool *p)
     int i, connfd, n;
     char buf[MAXLINE]; 
     rio_t rio;
+	char hostname[1024];
+	char *IP;
+	struct hostent *host_entry;
 
     for (i = 0; (i <= p->maxi) && (p->nready > 0); i++) {
 	connfd = p->clientfd[i];
@@ -103,19 +104,24 @@ void check_clients(pool *p)
 	if ((connfd > 0) && (FD_ISSET(connfd, &p->ready_set))) { 
 	    p->nready--;
 	    if ((n = Rio_readlineb(&rio, buf, MAXLINE)) != 0) {
-		byte_cnt += n; //line:conc:echoservers:beginecho
-		printf("Server received %d (%d total) bytes on fd %d\n", 
-		       n, byte_cnt, connfd);
-		//Fputs(buf, stdout);
-		strcat(buf, hostbuffer);
-		Rio_writen(connfd, buf, n); //line:conc:echoservers:endecho
+			byte_cnt += n; //line:conc:echoservers:beginecho
+			printf("\nHost name is:");
+			gethostname(hostname, 1024);
+			Fputs(hostname, stdout);
+			host_entry = gethostbyname(hostname);
+			IP = inet_ntoa(*((struct in_addr*)
+                           host_entry->h_addr_list[0]));
+			printf("\nHost IP: %s", IP);
+			printf("\nServer received %d (%d total) bytes on fd %d\n", 
+				n, byte_cnt, connfd);
+			Rio_writen(connfd, buf, n); //line:conc:echoservers:endecho
 	    }
 
 	    /* EOF detected, remove descriptor from pool */
 	    else { 
-		Close(connfd); //line:conc:echoservers:closeconnfd
-		FD_CLR(connfd, &p->read_set); //line:conc:echoservers:beginremove
-		p->clientfd[i] = -1;          //line:conc:echoservers:endremove
+			Close(connfd); //line:conc:echoservers:closeconnfd
+			FD_CLR(connfd, &p->read_set); //line:conc:echoservers:beginremove
+			p->clientfd[i] = -1;          //line:conc:echoservers:endremove
 	    }
 	}
     }
