@@ -1,20 +1,10 @@
-select function
+I learned that this course made it so I ask alot more questions when I sit down to write code. I noticed after I was done that my solution to printing out the hostname/ip of the server will not scale well at all. Allocating a set amount of bytes for the host buffer I create for each client that connects to the server is actually just a waste. Also, I learned it's easy to introduce clock skew issues into your development environment. Compiling code on one machine, copying the generated object code to another machine, and rerunning the make utility on that other machine does not end well. After reading chapter 6 a little, and out of my own curiosity I came to find out a clock is made up of a small quartz crystal that's shaped like a fork. Machines are used to tune the clock to vibrate at a certain frequency.
 
-It's easy to introduce clock skew by compiling on one machine,
-copying the generated object code to another machine,
-and rerunning the make utility on that other machine
+General Steps I Took:
 
-
-Commands I used:
-ifconfig <--- find the IP address of current machine 
-nmap -sP 10.168.39.0/24 <--- Run a scan to see other machines on the LAN
-
-The machine I used as a server had the IP address of 10.168.39.48
-The machine I used as a client had the IP address of 10.168.39.49
-
-Compiled and ran the make command in code/conc/
-On the server, executed ./echoservers 9001
-On the client, executed ./echoclient 10.168.39.48 9001
-
-On the client I typed a few lines and pressed enter,
-The server echo'd the response and listed the amount of bytes received
+1. ifconfig <--- find the IP address of current machine 
+2. nmap -sP 10.168.39.0/24 <--- Run a scan to see other machines on the LAN (24bit mask because I didn't bet on there being more than 256 machines in the computer lab)
+3. The machine I used as a server had the IP address of 10.168.39.48
+4. The machine I used as a client had the IP address of 10.168.39.49
+5. On the server, executed ./echoservers 9001
+6. On the client, executed ./echoclient 10.168.39.48 9001
