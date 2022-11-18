@@ -11,7 +11,6 @@ typedef struct { /* Represents a pool of connected descriptors */ //line:conc:ec
 } pool; //line:conc:echoservers:endpool
 void init_pool(int listenfd, pool *p);void add_client(int connfd, pool *p);void check_clients(pool *p);
 int byte_cnt = 0; /* Counts total bytes received by server */
-char tmp[2] = ".";
 char hostbuffer[50];
 gethostname(hostbuffer, sizeof(hostbuffer));
 
