@@ -104,6 +104,7 @@ void check_clients(pool *p)
 		byte_cnt += n; //line:conc:echoservers:beginecho
 		printf("Server received %d (%d total) bytes on fd %d\n", 
 		       n, byte_cnt, connfd);
+		Fputs(buf, stdout);
 		Rio_writen(connfd, buf, n); //line:conc:echoservers:endecho
 	    }
 
