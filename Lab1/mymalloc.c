@@ -31,14 +31,14 @@ int initializeList() {
 
 	/* Freelist currently looks like this:
 		hr->  ______________________
-			    | size: 4 byte int    |
-          | node: 12 byte struct|
+		      | size: 4 byte int    |
+          	      | node: 12 byte struct|
  		ptr-> -----------------------
-			    | size: 1008          |
-			    |                     |
-			    |                     |
-			    |                     |
-			    |_____________________|
+		      | size: 1008          |
+		      |                     |
+		      |                     |
+		      |                     |
+		      |_____________________|
 	*/
 
 	// Check to see if it allocated
